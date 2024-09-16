@@ -34,7 +34,9 @@ class Student {
 
 int main() {
     LinkedList<Student> students;
-    students.append(Student("John", 1));
+    students.append(Student("John", 2));
+    students.prepend(Student("John", 0));
+    students.insertAfter(Student("John", 0), Student("John", 1));
     students.printList();
 
     return 0;

@@ -28,6 +28,43 @@ template <typename T> class LinkedList {
         }
     }
 
+    void prepend(T data) {
+        prependNode(new Node<T>(data));
+    }
+
+    void prependNode(Node<T> *newNode) {
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = head;
+            head = newNode;
+        }
+    }
+
+    bool insertAfter(T currData, T newData) {
+        Node<T> *currNode = search(currData);
+        if (currNode) {
+            Node<T> *newNode = new Node<T>(newData);
+            insertAfterNode(currNode, newNode);
+            return true;
+        }
+        return false;
+    }
+
+    void insertAfterNode(Node<T> *currNode, Node<T> *newNode) {
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else if (currNode == tail) {
+            tail->next = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = currNode->next;
+            currNode->next = newNode;
+        }
+    }
+
     void printList() {
 
         Node<T> *current = head;
@@ -39,6 +76,17 @@ template <typename T> class LinkedList {
         }
 
         cout << "NULL" << endl;
+    }
+
+    Node<T> *search(T data) {
+        Node<T> *current = head;
+        while (current != nullptr) {
+            if (current->data.isEqual(data)) {
+                return current;
+            }
+            current = current->next;
+        }
+        return nullptr;
     }
 };
 
